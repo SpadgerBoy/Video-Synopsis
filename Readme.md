@@ -45,10 +45,10 @@ demo：（The file is located in the output folder）
 
 The first frame of the original video：
 
-![image-20240731145023044](outputs/test_0001.jpg)
+![](outputs/test_0001.png)
 
 The first frame of the new video：
 
-![image-20240731145043638](outputs/demo_0001.jpg)
+![](outputs/demo_0001.png)
 
 It is evident that the first frame of the new video contains the following additional targets: person-40 (appearing in frame 227 of the original video), person-43 (appearing in frame 293 of the original video), person-16 (appearing in frame 8 of the original video), person-35 (appearing in frame 207 of the original video), and person-15 (appearing in frame 6 of the original video) with only half of its legs in the upper right corner.

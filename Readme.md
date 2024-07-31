@@ -1,40 +1,54 @@
-**Optimization of Federated Learning Based on Reinforcement Learning**
 
 
+本代码库实现视频浓缩功能，将视频不同时间段出现的人物浓缩在较短的时间内。
 
-The FLPPO model adopts the proximal policy optimization (PPO) algorithm. In the experiment, the action space of the model is greatly compressed through the grouping strategy, so that the agent can traverse in a short time. During the training, let the agent help select the equipment participating in the training in each round, and encourage it to improve the accuracy of the global model selection, so as to accelerate the convergence of the global model and reduce the number of communication rounds. At the same time, a dynamic probability node selection strategy is introduced into the FLPPO model to reduce the long-tail waiting effect caused by network delay and shorten the training time.
+This code library implements video condensation function, which condenses characters that appear in different time periods of the video in a relatively short amount of time.
 
+1. You need to first obtain "yolov4. weights" and place it in the "./data" folder.
 
+​		Then run:
 
-The required dependencies are in the requirements. txt file
-
-Run code：
-
-```
-python run.py --config=configs/config.json 
+```bash
+python save_model.py
 ```
 
+​	The "./checkpoints" folder will be generated.
+
+2. run
+
+```
+python main.py
+```
+
+All intermediate files and final condensed videos will be generated in the "./outputs" folder.
 
 
 
 
-FedAvg and Cluster control groups were set up for FLPPO in the experiment.
 
 
 
-Label "IID": The IID distribution of each client data serves as the "upper limit" for experimental performance comparison.
-Label "FedAvg": Non IID distribution of data for each client, using FedAvg algorithm to randomly select clients for aggregation and updating, generally used as the "lower limit" for experimental performance comparison.
-Tag "Cluster": The data distribution is the same as in FedAvg, and clustering is performed based on the characteristics of the client model. Each round, a cluster of clients is selected for aggregation and updating.
-Label "FLPPO": The data distribution is the same as in FedAvg, the experimental algorithm in this article. Using the intelligent agent in PPO algorithm to assist in selecting the client for each round.
 
-![image-20240731141855297](assets/image-20240731141855297.png)
+Original video:
+
+<video src="outputs/test.mp4"></video>
 
 
 
-![image-20240731142020488](assets/image-20240731142020488.png)
+demo：（The file is located in the output folder）
 
-![image-20240731142032378](assets/image-20240731142032378.png)
+```
+<video src="outputs/demo_with_boxes.mp4"></video>
+```
 
 
 
-![image-20240731142045730](assets/image-20240731142045730.png)
+The first frame of the original video：
+
+![image-20240731145023044](outputs/test_0001.jpg)
+
+The first frame of the new video：
+
+![image-20240731145043638](outputs/demo_0001.jpg)
+
+It is evident that the first frame of the new video contains the following additional targets: person-40 (appearing in frame 227 of the original video), person-43 (appearing in frame 293 of the original video), person-16 (appearing in frame 8 of the original video), person-35 (appearing in frame 207 of the original video), and person-15 (appearing in frame 6 of the original video) with only half of its legs in the upper right corner.
